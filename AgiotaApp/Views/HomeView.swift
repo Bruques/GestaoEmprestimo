@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var viewModel: HomeViewModel
     var body: some View {
         TabView {
             DashboardView()
@@ -18,7 +19,7 @@ struct HomeView: View {
                     )
                 }
             
-            ContractFormView()
+            NewContractView(viewModel: viewModel.makeNewContractViewModel())
                 .tabItem {
                     Label(
                         title: { Text("New contract") },
@@ -46,5 +47,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    let viewModel = HomeViewModel()
+    return HomeView(viewModel: viewModel)
 }

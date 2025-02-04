@@ -12,9 +12,12 @@
 		0EE750382D5188E300C155FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EE750372D5188E300C155FD /* Assets.xcassets */; };
 		0EE7503C2D5188E300C155FD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EE7503B2D5188E300C155FD /* Preview Assets.xcassets */; };
 		0EE750462D518AA500C155FD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750452D518AA500C155FD /* DashboardView.swift */; };
-		0EE750482D518B6D00C155FD /* ContractFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750472D518B6D00C155FD /* ContractFormView.swift */; };
+		0EE750482D518B6D00C155FD /* NewContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750472D518B6D00C155FD /* NewContractView.swift */; };
 		0EE7504A2D518C1800C155FD /* BillingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750492D518C1800C155FD /* BillingView.swift */; };
 		0EE7504C2D518C9600C155FD /* ContractListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7504B2D518C9600C155FD /* ContractListView.swift */; };
+		0EE7504E2D5194E200C155FD /* NewContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7504D2D5194E200C155FD /* NewContractViewModel.swift */; };
+		0EE750502D51966300C155FD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7504F2D51966300C155FD /* HomeViewModel.swift */; };
+		0EE750522D51998500C155FD /* Recurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750512D51998500C155FD /* Recurrence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +28,12 @@
 		0EE750392D5188E300C155FD /* AgiotaApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgiotaApp.entitlements; sourceTree = "<group>"; };
 		0EE7503B2D5188E300C155FD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0EE750452D518AA500C155FD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		0EE750472D518B6D00C155FD /* ContractFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractFormView.swift; sourceTree = "<group>"; };
+		0EE750472D518B6D00C155FD /* NewContractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContractView.swift; sourceTree = "<group>"; };
 		0EE750492D518C1800C155FD /* BillingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillingView.swift; sourceTree = "<group>"; };
 		0EE7504B2D518C9600C155FD /* ContractListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractListView.swift; sourceTree = "<group>"; };
+		0EE7504D2D5194E200C155FD /* NewContractViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContractViewModel.swift; sourceTree = "<group>"; };
+		0EE7504F2D51966300C155FD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		0EE750512D51998500C155FD /* Recurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recurrence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 		0EE750422D5189A700C155FD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0EE750512D51998500C155FD /* Recurrence.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -91,7 +98,7 @@
 			children = (
 				0EE750352D5188E200C155FD /* HomeView.swift */,
 				0EE750452D518AA500C155FD /* DashboardView.swift */,
-				0EE750472D518B6D00C155FD /* ContractFormView.swift */,
+				0EE750472D518B6D00C155FD /* NewContractView.swift */,
 				0EE750492D518C1800C155FD /* BillingView.swift */,
 				0EE7504B2D518C9600C155FD /* ContractListView.swift */,
 			);
@@ -101,6 +108,8 @@
 		0EE750442D5189B600C155FD /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0EE7504D2D5194E200C155FD /* NewContractViewModel.swift */,
+				0EE7504F2D51966300C155FD /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -177,7 +186,10 @@
 			files = (
 				0EE750362D5188E200C155FD /* HomeView.swift in Sources */,
 				0EE750462D518AA500C155FD /* DashboardView.swift in Sources */,
-				0EE750482D518B6D00C155FD /* ContractFormView.swift in Sources */,
+				0EE7504E2D5194E200C155FD /* NewContractViewModel.swift in Sources */,
+				0EE750502D51966300C155FD /* HomeViewModel.swift in Sources */,
+				0EE750482D518B6D00C155FD /* NewContractView.swift in Sources */,
+				0EE750522D51998500C155FD /* Recurrence.swift in Sources */,
 				0EE7504A2D518C1800C155FD /* BillingView.swift in Sources */,
 				0EE7504C2D518C9600C155FD /* ContractListView.swift in Sources */,
 				0EE750342D5188E200C155FD /* AgiotaAppApp.swift in Sources */,
