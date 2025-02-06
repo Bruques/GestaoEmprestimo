@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1701CA2D54747B0011122B /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1701C92D54747B0011122B /* Contract.swift */; };
 		0EE750342D5188E200C155FD /* AgiotaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750332D5188E200C155FD /* AgiotaAppApp.swift */; };
 		0EE750362D5188E200C155FD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750352D5188E200C155FD /* HomeView.swift */; };
 		0EE750382D5188E300C155FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EE750372D5188E300C155FD /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E1701C92D54747B0011122B /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
 		0EE750302D5188E200C155FD /* AgiotaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgiotaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EE750332D5188E200C155FD /* AgiotaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgiotaAppApp.swift; sourceTree = "<group>"; };
 		0EE750352D5188E200C155FD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		0EE750422D5189A700C155FD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0E1701C92D54747B0011122B /* Contract.swift */,
 				0EE750512D51998500C155FD /* Recurrence.swift */,
 			);
 			path = Models;
@@ -187,6 +190,7 @@
 				0EE750362D5188E200C155FD /* HomeView.swift in Sources */,
 				0EE750462D518AA500C155FD /* DashboardView.swift in Sources */,
 				0EE7504E2D5194E200C155FD /* NewContractViewModel.swift in Sources */,
+				0E1701CA2D54747B0011122B /* Contract.swift in Sources */,
 				0EE750502D51966300C155FD /* HomeViewModel.swift in Sources */,
 				0EE750482D518B6D00C155FD /* NewContractView.swift in Sources */,
 				0EE750522D51998500C155FD /* Recurrence.swift in Sources */,

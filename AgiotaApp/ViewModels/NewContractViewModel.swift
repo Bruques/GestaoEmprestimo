@@ -9,58 +9,83 @@ import Foundation
 
 class NewContractViewModel: ObservableObject {
     
-    @Published var nome: String = ""
-    @Published var endereco: String = ""
-    @Published var telefone: String = ""
-    @Published var dataEmprestimo: Date = Date()
-    @Published var valorEmprestimo: String = "" {
+    @Published var name: String = ""
+    @Published var address: String = ""
+    @Published var phone: String = ""
+    @Published var loanDate: Date = Date()
+    @Published var loanValue: String = "" {
         didSet {
             self.calculate()
         }
     }
 
-    @Published var taxaJuros: String = "" {
+    @Published var interestRate: String = "" {
         didSet {
             self.calculate()
         }
     }
     
-    @Published var recorrencia: Recurrence = .mensal
-    @Published var parcelas: String = ""
+    @Published var recurrence: Recurrence = .mensal
+    @Published var installments: String = ""
     
-    @Published var totalReceber: Double = 0.0
-    @Published var previsaoLucro: Double = 0.0
+    @Published var totalToBeReceived: Double = 0.0
+    @Published var profitProjection: Double = 0.0
+    
+    var contract: Contract?
+    
+    @Published var showAlert: Bool = false
     
     init() {
         
     }
 
     private func calculate() {
-        guard let valor = Double(valorEmprestimo),
-              let juros = Double(taxaJuros),
-              !valorEmprestimo.isEmpty,
-              !taxaJuros.isEmpty else {
-            totalReceber = 0.0
-            previsaoLucro = 0.0
+        guard let value = Double(loanValue),
+              let interest = Double(interestRate),
+              !loanValue.isEmpty,
+              !interestRate.isEmpty else {
+            totalToBeReceived = 0.0
+            profitProjection = 0.0
             return
         }
         
-        let jurosDecimal = juros / 100
-        totalReceber = valor * (1 + jurosDecimal)
-        previsaoLucro = totalReceber - valor
+        let decimalInterest = interest / 100
+        totalToBeReceived = value * (1 + decimalInterest)
+        profitProjection = totalToBeReceived - value
     }
     
-    public func criarContrato() {
-        let totalReceberFormatado = String(format: "R$ %.2f", totalReceber)
-        let previsaoLucroFormatado = String(format: "R$ %.2f", previsaoLucro)
+    public func newContract() {
+        guard let value = Double(loanValue),
+              let interest = Double(interestRate) else {
+            print("Erro ao criar contrato: valores inválidos.")
+            return
+        }
+        
+        let formattedTotalToBeReceived = String(format: "R$ %.2f", totalToBeReceived)
+        let formattedProfitProjection = String(format: "R$ %.2f", profitProjection)
+        
+        let contract = Contract(
+            name: name,
+            address: address,
+            phone: phone,
+            loanDate: loanDate,
+            loanValue: value,
+            interestRate: interest,
+            totalToBeReceived: totalToBeReceived,
+            profitProjection: profitProjection
+        )
+        
+        self.contract = contract
+        self.showAlert = true
         
         print("Contrato criado com sucesso!")
-        print("Nome: \(nome)")
-        print("Endereço: \(endereco)")
-        print("Telefone: \(telefone)")
-        print("Valor do Empréstimo: \(valorEmprestimo)")
-        print("Taxa de Juros: \(taxaJuros)%")
-        print("Total a Receber: \(totalReceberFormatado)")
-        print("Previsão de Lucro: \(previsaoLucroFormatado)")
+        print("Nome: \(name)")
+        print("Endereço: \(address)")
+        print("Telefone: \(phone)")
+        print("Data do emprestimo: \(loanDate)")
+        print("Valor do Empréstimo: \(loanValue)")
+        print("Taxa de Juros: \(interestRate)%")
+        print("Total a Receber: \(formattedTotalToBeReceived)")
+        print("Previsão de Lucro: \(formattedProfitProjection)")
     }
 }

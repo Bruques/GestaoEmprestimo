@@ -14,7 +14,7 @@ struct HomeView: View {
             DashboardView()
                 .tabItem {
                     Label(
-                        title: { Text("Dashboard") },
+                        title: { Text("Resumo") },
                         icon: { Image(systemName: "42.circle") }
                     )
                 }
@@ -22,7 +22,7 @@ struct HomeView: View {
             NewContractView(viewModel: viewModel.makeNewContractViewModel())
                 .tabItem {
                     Label(
-                        title: { Text("New contract") },
+                        title: { Text("Novo contrato") },
                         icon: { Image(systemName: "plus") }
                     )
                 }
@@ -30,7 +30,7 @@ struct HomeView: View {
             ContractListView()
                 .tabItem {
                     Label(
-                        title: { Text("Contracts") },
+                        title: { Text("Contratos") },
                         icon: { Image(systemName: "doc.plaintext") }
                     )
                 }
@@ -38,7 +38,7 @@ struct HomeView: View {
             BillingView()
                 .tabItem {
                     Label(
-                        title: { Text("Billing") },
+                        title: { Text("Cobranças") },
                         icon: { Image(systemName: "bell") }
                     )
                 }

@@ -16,13 +16,25 @@ struct NewContractView: View {
             loanDetailInfoSection
             newContractButton
         }
+        .alert(isPresented: $viewModel.showAlert) {
+                Alert(
+                    title: Text("Contrato Criado"),
+                    message: Text("Deseja continuar com a criação ou voltar a editar?"),
+                    primaryButton: .default(Text("Continuar")) {
+                        // Action to continue
+                    },
+                    secondaryButton: .cancel(Text("Editar")) {
+                        // Action to edit
+                    }
+                )
+            }
     }
     
     var clientInfoSection: some View {
         Section("Informações do cliente") {
-            TextField("Nome", text: $viewModel.nome)
-            TextField("Endereço", text: $viewModel.endereco)
-            TextField("Telefone", text: $viewModel.telefone)
+            TextField("Nome", text: $viewModel.name)
+            TextField("Endereço", text: $viewModel.address)
+            TextField("Telefone", text: $viewModel.phone)
                 .keyboardType(.numberPad)
         }
     }
@@ -30,23 +42,23 @@ struct NewContractView: View {
     var loanInfoSection: some View {
         Section("Informações do Empréstimo") {
             DatePicker("Data do empréstimo",
-                       selection: $viewModel.dataEmprestimo,
+                       selection: $viewModel.loanDate,
                        displayedComponents: .date)
             TextField("Valor do Empréstimo",
-                      text: $viewModel.valorEmprestimo)
+                      text: $viewModel.loanValue)
                 .keyboardType(.decimalPad)
             TextField("Taxa de Juros (%)",
-                      text: $viewModel.taxaJuros)
+                      text: $viewModel.interestRate)
                 .keyboardType(.decimalPad)
             Picker("Recorrência",
-                   selection: $viewModel.recorrencia) {
+                   selection: $viewModel.recurrence) {
                 ForEach(Recurrence.allCases,
                         id: \.self) { item in
                     Text(item.rawValue)
                 }
             }
             TextField("Número de Parcelas",
-                      text: $viewModel.parcelas)
+                      text: $viewModel.installments)
                 .keyboardType(.numberPad)
         }
     }
@@ -56,20 +68,20 @@ struct NewContractView: View {
             HStack {
                 Text("Total a Receber:")
                 Spacer()
-                Text("R$ \(viewModel.totalReceber, specifier: "%.2f")")
+                Text("R$ \(viewModel.totalToBeReceived, specifier: "%.2f")")
                     .foregroundColor(.blue)
             }
             HStack {
                 Text("Previsão de Lucro:")
                 Spacer()
-                Text("R$ \(viewModel.previsaoLucro, specifier: "%.2f")")
+                Text("R$ \(viewModel.profitProjection, specifier: "%.2f")")
                     .foregroundColor(.green)
             }
         }
     }
     
     var newContractButton: some View {
-        Button(action: viewModel.criarContrato) {
+        Button(action: viewModel.newContract) {
             Text("Criar Contrato")
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding()
