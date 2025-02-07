@@ -9,6 +9,8 @@ import Foundation
 import CoreData
 
 class ContractListViewModel: ObservableObject {
+    @Published public var showForm: Bool = false
+    
     @Published public var contracts: [ContractEntity] = []
     
     init() {
@@ -24,5 +26,14 @@ class ContractListViewModel: ObservableObject {
         } catch {
             print("Fetch contracts error: \(error.localizedDescription)")
         }
+    }
+    
+    public func refresh() {
+        fetchContracts()
+    }
+    
+    // MARK: - Make new contract view model
+    public func makeNewContractViewModel() -> NewContractViewModel {
+        return NewContractViewModel()
     }
 }

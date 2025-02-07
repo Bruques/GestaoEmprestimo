@@ -10,7 +10,33 @@ import SwiftUI
 struct ContractListView: View {
     @ObservedObject var viewModel: ContractListViewModel
     var body: some View {
-        Text("Contract")
+        NavigationView {
+            List {
+                ForEach(viewModel.contracts) { contract in
+                    Text("Cliente: \(contract.name ?? "Nulo")")
+                }
+            }
+            .refreshable {
+                viewModel.refresh()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        viewModel.showForm = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
+            }
+            .navigationTitle("Contratos")
+        }
+        
+        .sheet(isPresented: $viewModel.showForm,
+               content: {
+            NavigationView {
+                NewContractView(viewModel: viewModel.makeNewContractViewModel())
+            }
+        })
     }
 }
 

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct NewContractView: View {
     @ObservedObject var viewModel: NewContractViewModel
+    @FocusState private var isFocused: Bool
     var body: some View {
         Form {
             clientInfoSection
             loanInfoSection
             loanDetailInfoSection
-            newContractButton
         }
         .alert(isPresented: $viewModel.showAlert) {
                 Alert(
@@ -22,17 +22,39 @@ struct NewContractView: View {
                     message: Text("Deseja continuar com a criação ou voltar a editar?"),
                     primaryButton: .default(Text("Continuar")) {
                         // Action to continue
+                        viewModel.newContract()
                     },
                     secondaryButton: .cancel(Text("Editar")) {
                         // Action to edit
                     }
                 )
             }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {}, label: {
+                    Text("Voltar")
+                })
+            }
+            ToolbarItem(placement: .principal) {
+                Text("Novo contrato")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    viewModel.onSaveTap()
+                }, label: {
+                    Text("Salvar")
+                })
+            }
+        }
     }
     
     var clientInfoSection: some View {
         Section("Informações do cliente") {
             TextField("Nome", text: $viewModel.name)
+                .focused($isFocused)
+                .onAppear(perform: {
+                    isFocused = true
+                })
             TextField("Endereço", text: $viewModel.address)
             TextField("Telefone", text: $viewModel.phone)
                 .keyboardType(.numberPad)
@@ -77,17 +99,6 @@ struct NewContractView: View {
                 Text("R$ \(viewModel.profitProjection, specifier: "%.2f")")
                     .foregroundColor(.green)
             }
-        }
-    }
-    
-    var newContractButton: some View {
-        Button(action: viewModel.newContract) {
-            Text("Criar Contrato")
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
         }
     }
 }

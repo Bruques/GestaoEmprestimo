@@ -29,6 +29,7 @@ extension CoreDataStack {
         guard persistentContainer.viewContext.hasChanges else { return }
         do {
             try persistentContainer.viewContext.save()
+            print("Salvo com sucesso!")
         } catch {
             print("Failed to save the context:", error.localizedDescription)
         }

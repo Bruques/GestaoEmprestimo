@@ -8,7 +8,6 @@
 import Foundation
 
 class NewContractViewModel: ObservableObject {
-    
     @Published var name: String = ""
     @Published var address: String = ""
     @Published var phone: String = ""
@@ -18,20 +17,15 @@ class NewContractViewModel: ObservableObject {
             self.calculate()
         }
     }
-
     @Published var interestRate: String = "" {
         didSet {
             self.calculate()
         }
     }
-    
     @Published var recurrence: Recurrence = .mensal
     @Published var installments: String = ""
-    
     @Published var totalToBeReceived: Double = 0.0
     @Published var profitProjection: Double = 0.0
-    
-    var contract: Contract?
     
     @Published var showAlert: Bool = false
     
@@ -54,6 +48,10 @@ class NewContractViewModel: ObservableObject {
         profitProjection = totalToBeReceived - value
     }
     
+    public func onSaveTap() {
+        self.showAlert = true
+    }
+    
     public func newContract() {
         guard let value = Double(loanValue),
               let interest = Double(interestRate),
@@ -65,30 +63,18 @@ class NewContractViewModel: ObservableObject {
         let formattedTotalToBeReceived = String(format: "R$ %.2f", totalToBeReceived)
         let formattedProfitProjection = String(format: "R$ %.2f", profitProjection)
         
-        let contract = Contract(
-            name: name,
-            address: address,
-            phone: phone,
-            loanDate: loanDate,
-            loanValue: value,
-            interestRate: interest, 
-            recurrence: recurrence,
-            installments: installments,
-            totalToBeReceived: totalToBeReceived,
-            profitProjection: profitProjection
-        )
+        let contract = ContractEntity(context: CoreDataStack.shared.persistentContainer.viewContext)
+        contract.name = name
+        contract.address = address
+        contract.phone = phone
+        contract.loanDate = loanDate
+        contract.loanValue = value
+        contract.interestRate = interest
+        contract.recurrence = recurrence.rawValue
+        contract.installments = Int16(installments)
+        contract.totalToBeReceived = totalToBeReceived
+        contract.profitProjection = profitProjection
         
-        self.contract = contract
-        self.showAlert = true
-        
-        print("Contrato criado com sucesso!")
-        print("Nome: \(name)")
-        print("Endereço: \(address)")
-        print("Telefone: \(phone)")
-        print("Data do emprestimo: \(loanDate)")
-        print("Valor do Empréstimo: \(loanValue)")
-        print("Taxa de Juros: \(interestRate)%")
-        print("Total a Receber: \(formattedTotalToBeReceived)")
-        print("Previsão de Lucro: \(formattedProfitProjection)")
+        CoreDataStack.shared.save()
     }
 }
