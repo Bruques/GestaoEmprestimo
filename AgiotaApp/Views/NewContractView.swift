@@ -15,7 +15,6 @@ struct NewContractView: View {
             clientInfoSection
             loanInfoSection
             loanDetailInfoSection
-            newContractButton
         }
         .scrollDismissesKeyboard(.interactively)
         .alert(isPresented: $viewModel.showAlert) {
@@ -99,17 +98,6 @@ struct NewContractView: View {
                 Text("R$ \(viewModel.profitProjection, specifier: "%.2f")")
                     .foregroundColor(.green)
             }
-        }
-    }
-    
-    var newContractButton: some View {
-        Button(action: viewModel.newContract) {
-            Text("Criar Contrato")
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
         }
     }
 }

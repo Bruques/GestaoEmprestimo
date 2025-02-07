@@ -29,6 +29,7 @@ struct ContractListView: View {
                 })
                 newContractButton
                     .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
             }
         }
