@@ -56,7 +56,8 @@ class NewContractViewModel: ObservableObject {
     
     public func newContract() {
         guard let value = Double(loanValue),
-              let interest = Double(interestRate) else {
+              let interest = Double(interestRate),
+              let installments = Int(installments) else {
             print("Erro ao criar contrato: valores inválidos.")
             return
         }
@@ -70,7 +71,9 @@ class NewContractViewModel: ObservableObject {
             phone: phone,
             loanDate: loanDate,
             loanValue: value,
-            interestRate: interest,
+            interestRate: interest, 
+            recurrence: recurrence,
+            installments: installments,
             totalToBeReceived: totalToBeReceived,
             profitProjection: profitProjection
         )
