@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct AgiotaAppApp: App {
+    @StateObject private var coreDataStack = CoreDataStack.shared
     var body: some Scene {
         WindowGroup {
             HomeView(viewModel: HomeViewModel())
+                .environment(\.managedObjectContext,
+                              coreDataStack.persistentContainer.viewContext)
         }
     }
 }

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import CoreData
+import Combine
 
 class NewContractViewModel: ObservableObject {
     
@@ -35,8 +37,12 @@ class NewContractViewModel: ObservableObject {
     
     @Published var showAlert: Bool = false
     
-    init() {
-        
+    private let context: NSManagedObjectContext
+    
+    public var onSave = PassthroughSubject<Void, Never>()
+    
+    init(context: NSManagedObjectContext = CoreDataStack.shared.persistentContainer.viewContext) {
+        self.context = context
     }
 
     private func calculate() {
@@ -62,8 +68,8 @@ class NewContractViewModel: ObservableObject {
             return
         }
         
-        let formattedTotalToBeReceived = String(format: "R$ %.2f", totalToBeReceived)
-        let formattedProfitProjection = String(format: "R$ %.2f", profitProjection)
+//        let formattedTotalToBeReceived = String(format: "R$ %.2f", totalToBeReceived)
+//        let formattedProfitProjection = String(format: "R$ %.2f", profitProjection)
         
         let contract = Contract(
             name: name,
@@ -79,16 +85,38 @@ class NewContractViewModel: ObservableObject {
         )
         
         self.contract = contract
-        self.showAlert = true
+//        self.showAlert = true
         
-        print("Contrato criado com sucesso!")
-        print("Nome: \(name)")
-        print("Endereço: \(address)")
-        print("Telefone: \(phone)")
-        print("Data do emprestimo: \(loanDate)")
-        print("Valor do Empréstimo: \(loanValue)")
-        print("Taxa de Juros: \(interestRate)%")
-        print("Total a Receber: \(formattedTotalToBeReceived)")
-        print("Previsão de Lucro: \(formattedProfitProjection)")
+        let contractEntity = ContractEntity(context: CoreDataStack.shared.persistentContainer.viewContext)
+        contractEntity.name = name
+        contractEntity.address = address
+        contractEntity.phone = phone
+        contractEntity.loanDate = loanDate
+        contractEntity.loanValue = value
+        contractEntity.interestRate = interest
+        contractEntity.recurrence = recurrence.rawValue
+        contractEntity.installments = Int16(installments)
+        contractEntity.totalToBeReceived = totalToBeReceived
+        contractEntity.profitProjection = profitProjection
+        
+        do {
+            try context.save()
+            print("Contrato criado com sucesso!")
+            onSave.send(())
+        } catch {
+            print("erro no save")
+        }
+        
+        
+        
+//        print("Contrato criado com sucesso!")
+//        print("Nome: \(name)")
+//        print("Endereço: \(address)")
+//        print("Telefone: \(phone)")
+//        print("Data do emprestimo: \(loanDate)")
+//        print("Valor do Empréstimo: \(loanValue)")
+//        print("Taxa de Juros: \(interestRate)%")
+//        print("Total a Receber: \(formattedTotalToBeReceived)")
+//        print("Previsão de Lucro: \(formattedProfitProjection)")
     }
 }

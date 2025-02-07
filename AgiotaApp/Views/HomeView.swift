@@ -11,38 +11,40 @@ struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
     var body: some View {
         TabView {
-            DashboardView()
-                .tabItem {
-                    Label(
-                        title: { Text("Resumo") },
-                        icon: { Image(systemName: "42.circle") }
-                    )
-                }
-            
-            NewContractView(viewModel: viewModel.makeNewContractViewModel())
-                .tabItem {
-                    Label(
-                        title: { Text("Novo contrato") },
-                        icon: { Image(systemName: "plus") }
-                    )
-                }
-            
-            ContractListView()
-                .tabItem {
-                    Label(
-                        title: { Text("Contratos") },
-                        icon: { Image(systemName: "doc.plaintext") }
-                    )
-                }
-            
-            BillingView()
-                .tabItem {
-                    Label(
-                        title: { Text("Cobranças") },
-                        icon: { Image(systemName: "bell") }
-                    )
-                }
+            dashboardView
+            contractListView
+            billingListView
         }
+    }
+    
+    var dashboardView: some View {
+        DashboardView()
+            .tabItem {
+                Label(
+                    title: { Text("Resumo") },
+                    icon: { Image(systemName: "42.circle") }
+                )
+            }
+    }
+    
+    var contractListView: some View {
+        ContractListView(viewModel: ContractListViewModel())
+            .tabItem {
+                Label(
+                    title: { Text("Contratos") },
+                    icon: { Image(systemName: "doc.plaintext") }
+                )
+            }
+    }
+    
+    var billingListView: some View {
+        BillingView()
+            .tabItem {
+                Label(
+                    title: { Text("Cobranças") },
+                    icon: { Image(systemName: "bell") }
+                )
+            }
     }
 }
 

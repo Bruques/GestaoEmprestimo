@@ -17,17 +17,33 @@ struct NewContractView: View {
             newContractButton
         }
         .alert(isPresented: $viewModel.showAlert) {
-                Alert(
-                    title: Text("Contrato Criado"),
-                    message: Text("Deseja continuar com a criação ou voltar a editar?"),
-                    primaryButton: .default(Text("Continuar")) {
-                        // Action to continue
-                    },
-                    secondaryButton: .cancel(Text("Editar")) {
-                        // Action to edit
-                    }
-                )
+            Alert(
+                title: Text("Contrato Criado"),
+                message: Text("Deseja continuar com a criação ou voltar a editar?"),
+                primaryButton: .default(Text("Continuar")) {
+                    // Action to continue
+                },
+                secondaryButton: .cancel(Text("Editar")) {
+                    // Action to edit
+                }
+            )
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    
+                }, label: {
+                    Text("Voltar")
+                })
             }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    viewModel.newContract()
+                }, label: {
+                    Text("Salvar")
+                })
+            }
+        }
     }
     
     var clientInfoSection: some View {

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0E1701CA2D54747B0011122B /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1701C92D54747B0011122B /* Contract.swift */; };
+		0E913C2D2D559D2900546BB6 /* AgiotaApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E913C2B2D559D2900546BB6 /* AgiotaApp.xcdatamodeld */; };
+		0E913C2F2D55A0B700546BB6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E913C2E2D55A0B700546BB6 /* CoreDataStack.swift */; };
+		0E913C312D55A6E400546BB6 /* ContractListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E913C302D55A6E400546BB6 /* ContractListViewModel.swift */; };
 		0EE750342D5188E200C155FD /* AgiotaAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750332D5188E200C155FD /* AgiotaAppApp.swift */; };
 		0EE750362D5188E200C155FD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE750352D5188E200C155FD /* HomeView.swift */; };
 		0EE750382D5188E300C155FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EE750372D5188E300C155FD /* Assets.xcassets */; };
@@ -23,6 +26,9 @@
 
 /* Begin PBXFileReference section */
 		0E1701C92D54747B0011122B /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		0E913C2C2D559D2900546BB6 /* Contracts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Contracts.xcdatamodel; sourceTree = "<group>"; };
+		0E913C2E2D55A0B700546BB6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		0E913C302D55A6E400546BB6 /* ContractListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractListViewModel.swift; sourceTree = "<group>"; };
 		0EE750302D5188E200C155FD /* AgiotaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgiotaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EE750332D5188E200C155FD /* AgiotaAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgiotaAppApp.swift; sourceTree = "<group>"; };
 		0EE750352D5188E200C155FD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -49,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E913C2A2D559D1700546BB6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0E913C2B2D559D2900546BB6 /* AgiotaApp.xcdatamodeld */,
+				0E913C2E2D55A0B700546BB6 /* CoreDataStack.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		0EE750272D5188E200C155FD = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +83,7 @@
 		0EE750322D5188E200C155FD /* AgiotaApp */ = {
 			isa = PBXGroup;
 			children = (
+				0E913C2A2D559D1700546BB6 /* CoreData */,
 				0EE750442D5189B600C155FD /* ViewModels */,
 				0EE750432D5189AB00C155FD /* Views */,
 				0EE750422D5189A700C155FD /* Models */,
@@ -113,6 +129,7 @@
 			children = (
 				0EE7504D2D5194E200C155FD /* NewContractViewModel.swift */,
 				0EE7504F2D51966300C155FD /* HomeViewModel.swift */,
+				0E913C302D55A6E400546BB6 /* ContractListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -190,13 +207,16 @@
 				0EE750362D5188E200C155FD /* HomeView.swift in Sources */,
 				0EE750462D518AA500C155FD /* DashboardView.swift in Sources */,
 				0EE7504E2D5194E200C155FD /* NewContractViewModel.swift in Sources */,
+				0E913C2F2D55A0B700546BB6 /* CoreDataStack.swift in Sources */,
 				0E1701CA2D54747B0011122B /* Contract.swift in Sources */,
 				0EE750502D51966300C155FD /* HomeViewModel.swift in Sources */,
 				0EE750482D518B6D00C155FD /* NewContractView.swift in Sources */,
 				0EE750522D51998500C155FD /* Recurrence.swift in Sources */,
 				0EE7504A2D518C1800C155FD /* BillingView.swift in Sources */,
 				0EE7504C2D518C9600C155FD /* ContractListView.swift in Sources */,
+				0E913C2D2D559D2900546BB6 /* AgiotaApp.xcdatamodeld in Sources */,
 				0EE750342D5188E200C155FD /* AgiotaAppApp.swift in Sources */,
+				0E913C312D55A6E400546BB6 /* ContractListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +435,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0E913C2B2D559D2900546BB6 /* AgiotaApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0E913C2C2D559D2900546BB6 /* Contracts.xcdatamodel */,
+			);
+			currentVersion = 0E913C2C2D559D2900546BB6 /* Contracts.xcdatamodel */;
+			path = AgiotaApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0EE750282D5188E200C155FD /* Project object */;
 }
