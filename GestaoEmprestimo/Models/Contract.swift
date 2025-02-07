@@ -8,7 +8,6 @@
 import Foundation
 
 class Contract: Identifiable, ObservableObject {
-    let id: UUID = UUID()
     @Published var name: String
     @Published var address: String
     @Published var phone: String

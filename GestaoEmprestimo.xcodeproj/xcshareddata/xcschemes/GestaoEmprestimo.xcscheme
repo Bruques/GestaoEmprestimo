@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0EE7502F2D5188E200C155FD"
-               BuildableName = "AgiotaApp.app"
-               BlueprintName = "AgiotaApp"
-               ReferencedContainer = "container:AgiotaApp.xcodeproj">
+               BuildableName = "GestaoEmprestimo.app"
+               BlueprintName = "GestaoEmprestimo"
+               ReferencedContainer = "container:GestaoEmprestimo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0EE7502F2D5188E200C155FD"
-            BuildableName = "AgiotaApp.app"
-            BlueprintName = "AgiotaApp"
-            ReferencedContainer = "container:AgiotaApp.xcodeproj">
+            BuildableName = "GestaoEmprestimo.app"
+            BlueprintName = "GestaoEmprestimo"
+            ReferencedContainer = "container:GestaoEmprestimo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0EE7502F2D5188E200C155FD"
-            BuildableName = "AgiotaApp.app"
-            BlueprintName = "AgiotaApp"
-            ReferencedContainer = "container:AgiotaApp.xcodeproj">
+            BuildableName = "GestaoEmprestimo.app"
+            BlueprintName = "GestaoEmprestimo"
+            ReferencedContainer = "container:GestaoEmprestimo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

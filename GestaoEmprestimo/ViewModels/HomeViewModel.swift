@@ -12,4 +12,8 @@ class HomeViewModel: ObservableObject {
     public func makeNewContractViewModel() -> NewContractViewModel {
         return NewContractViewModel()
     }
+    
+    public func makeContractListViewModel() -> ContractListViewModel {
+        return ContractListViewModel()
+    }
 }

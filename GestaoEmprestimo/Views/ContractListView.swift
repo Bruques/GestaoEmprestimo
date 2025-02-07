@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContractListView: View {
+    @ObservedObject var viewModel: ContractListViewModel
     var body: some View {
         Text("Contract")
     }
 }
 
 #Preview {
-    ContractListView()
+    let vm = ContractListViewModel()
+    return ContractListView(viewModel: vm)
 }
