@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewContractView: View {
     @ObservedObject var viewModel: NewContractViewModel
+    @FocusState private var isNameFocused: Bool
     var body: some View {
         Form {
             clientInfoSection
@@ -16,6 +17,7 @@ struct NewContractView: View {
             loanDetailInfoSection
             newContractButton
         }
+        .scrollDismissesKeyboard(.interactively)
         .alert(isPresented: $viewModel.showAlert) {
             Alert(
                 title: Text("Contrato Criado"),
@@ -49,6 +51,10 @@ struct NewContractView: View {
     var clientInfoSection: some View {
         Section("Informações do cliente") {
             TextField("Nome", text: $viewModel.name)
+                .focused($isNameFocused)
+                .onAppear(perform: {
+                    isNameFocused = true
+                })
             TextField("Endereço", text: $viewModel.address)
             TextField("Telefone", text: $viewModel.phone)
                 .keyboardType(.numberPad)
