@@ -12,6 +12,7 @@ class ContractListViewModel: ObservableObject {
     @Published public var showForm: Bool = false
     
     @Published public var contracts: [ContractEntity] = []
+    let viewContext = CoreDataStack.shared.persistentContainer.viewContext
     
     init() {
         fetchContracts()
@@ -29,6 +30,14 @@ class ContractListViewModel: ObservableObject {
     
     public func refresh() {
         fetchContracts()
+    }
+    
+    // MARK: - Delete item
+    public func delete(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let contract = contracts[index]
+            viewContext.delete(contract)
+        }
     }
     
     // MARK: - Make new contract view model

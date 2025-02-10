@@ -16,6 +16,7 @@ struct ContractListView: View {
                     contractCell(contract)
                         .listRowSeparator(.hidden)
                 }
+                .onDelete(perform: viewModel.delete(at:))
                 .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
