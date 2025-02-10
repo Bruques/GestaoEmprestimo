@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
 class NewContractViewModel: ObservableObject {
     @Published var name: String = ""
@@ -27,10 +29,17 @@ class NewContractViewModel: ObservableObject {
     @Published var totalToBeReceived: Double = 0.0
     @Published var profitProjection: Double = 0.0
     
-    @Published var showAlert: Bool = false
+    @Published var showBackDialog: Bool = false
+    @Published var showSaveAlert: Bool = false
     
-    init() {
-        
+    @Published var isSaved: Bool = false
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    let onSave: () -> Void
+    
+    init(onSave: @escaping () -> Void) {
+        self.onSave = onSave
     }
 
     private func calculate() {
@@ -48,20 +57,27 @@ class NewContractViewModel: ObservableObject {
         profitProjection = totalToBeReceived - value
     }
     
-    public func onSaveTap() {
-        self.showAlert = true
+    public func isFormEmpty() -> Bool {
+        return name.isEmpty &&
+            address.isEmpty &&
+            loanValue.isEmpty &&
+            interestRate.isEmpty &&
+            installments.isEmpty
     }
     
+    public func onBackTap() {
+        showBackDialog = true
+    }
+    
+    // MARK: - New contract
     public func newContract() {
         guard let value = Double(loanValue),
               let interest = Double(interestRate),
               let installments = Int(installments) else {
             print("Erro ao criar contrato: valores inválidos.")
+            showSaveAlert = true
             return
         }
-        
-        let formattedTotalToBeReceived = String(format: "R$ %.2f", totalToBeReceived)
-        let formattedProfitProjection = String(format: "R$ %.2f", profitProjection)
         
         let contract = ContractEntity(context: CoreDataStack.shared.persistentContainer.viewContext)
         contract.name = name
@@ -76,5 +92,7 @@ class NewContractViewModel: ObservableObject {
         contract.profitProjection = profitProjection
         
         CoreDataStack.shared.save()
+        isSaved = true
+        onSave()
     }
 }

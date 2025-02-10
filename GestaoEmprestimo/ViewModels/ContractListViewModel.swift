@@ -22,7 +22,6 @@ class ContractListViewModel: ObservableObject {
         do {
             let response = try CoreDataStack.shared.persistentContainer.viewContext.fetch(request)
             contracts = response
-            print("Fetch contract success! \(response)")
         } catch {
             print("Fetch contracts error: \(error.localizedDescription)")
         }
@@ -34,6 +33,8 @@ class ContractListViewModel: ObservableObject {
     
     // MARK: - Make new contract view model
     public func makeNewContractViewModel() -> NewContractViewModel {
-        return NewContractViewModel()
+        return NewContractViewModel() { [weak self] in
+            self?.refresh()
+        }
     }
 }

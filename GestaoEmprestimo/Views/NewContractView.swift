@@ -10,39 +10,59 @@ import SwiftUI
 struct NewContractView: View {
     @ObservedObject var viewModel: NewContractViewModel
     @FocusState private var isFocused: Bool
+    
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         Form {
             clientInfoSection
             loanInfoSection
             loanDetailInfoSection
         }
-        .alert(isPresented: $viewModel.showAlert) {
-                Alert(
-                    title: Text("Contrato Criado"),
-                    message: Text("Deseja continuar com a criação ou voltar a editar?"),
-                    primaryButton: .default(Text("Continuar")) {
-                        // Action to continue
-                        viewModel.newContract()
-                    },
-                    secondaryButton: .cancel(Text("Editar")) {
-                        // Action to edit
-                    }
-                )
+        .onReceive(viewModel.$isSaved) { isSaved in
+            if isSaved {
+                dismiss()
             }
+        }
+        .alert("Você precisa preencher os campos antes de salvar", isPresented: $viewModel.showSaveAlert, actions: {
+            Button("Voltar",
+                   role: .cancel) {}
+        })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: {}, label: {
+                Button(action: {
+                    if viewModel.isFormEmpty() {
+                        dismiss()
+                    } else {
+                        viewModel.showBackDialog = true
+                    }
+                }, label: {
                     Text("Voltar")
                 })
+                .confirmationDialog(
+                    "Tem certeza que deseja cancelar?",
+                    isPresented: $viewModel.showBackDialog
+                ) {
+                    Button("Deletar",
+                           role: .destructive) {
+                        dismiss()
+                    }
+                    Button("Cancelar",
+                           role: .cancel) {}
+                } message: {
+                    Text("Você não poderá desfazer isso.")
+                }
             }
             ToolbarItem(placement: .principal) {
                 Text("Novo contrato")
+                    .font(.headline)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    viewModel.onSaveTap()
+                    viewModel.newContract()
                 }, label: {
                     Text("Salvar")
+                        .font(.headline)
                 })
             }
         }
@@ -103,7 +123,12 @@ struct NewContractView: View {
     }
 }
 
+//#Preview {
+//    let viewModel = NewContractViewModel()
+//    return NewContractView(viewModel: viewModel)
+//}
+
 #Preview {
-    let viewModel = NewContractViewModel()
-    return NewContractView(viewModel: viewModel)
+    let vm = ContractListViewModel()
+    return ContractListView(viewModel: vm)
 }
