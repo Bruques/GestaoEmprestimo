@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0E1701CA2D54747B0011122B /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1701C92D54747B0011122B /* Contract.swift */; };
+		0E1989222D5A9D3600DE1B39 /* ContractDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1989212D5A9D3600DE1B39 /* ContractDetailView.swift */; };
+		0E1989242D5A9D5700DE1B39 /* ContractDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1989232D5A9D5700DE1B39 /* ContractDetailViewModel.swift */; };
 		0E8F1C342D56B3C9003A61DB /* GestaoEmprestimoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E8F1C322D56B3C9003A61DB /* GestaoEmprestimoModel.xcdatamodeld */; };
 		0E8F1C372D56B50C003A61DB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8F1C362D56B50C003A61DB /* CoreDataStack.swift */; };
 		0E8F1C392D56B6F4003A61DB /* ContractListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8F1C382D56B6F4003A61DB /* ContractListViewModel.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		0E1701C92D54747B0011122B /* Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
+		0E1989212D5A9D3600DE1B39 /* ContractDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDetailView.swift; sourceTree = "<group>"; };
+		0E1989232D5A9D5700DE1B39 /* ContractDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDetailViewModel.swift; sourceTree = "<group>"; };
 		0E8F1C332D56B3C9003A61DB /* GestaoEmprestimoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GestaoEmprestimoModel.xcdatamodel; sourceTree = "<group>"; };
 		0E8F1C362D56B50C003A61DB /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		0E8F1C382D56B6F4003A61DB /* ContractListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractListViewModel.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				0EE750472D518B6D00C155FD /* NewContractView.swift */,
 				0EE750492D518C1800C155FD /* BillingView.swift */,
 				0EE7504B2D518C9600C155FD /* ContractListView.swift */,
+				0E1989212D5A9D3600DE1B39 /* ContractDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 				0EE7504D2D5194E200C155FD /* NewContractViewModel.swift */,
 				0EE7504F2D51966300C155FD /* HomeViewModel.swift */,
 				0E8F1C382D56B6F4003A61DB /* ContractListViewModel.swift */,
+				0E1989232D5A9D5700DE1B39 /* ContractDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -207,6 +213,8 @@
 				0EE750362D5188E200C155FD /* HomeView.swift in Sources */,
 				0EE750462D518AA500C155FD /* DashboardView.swift in Sources */,
 				0EE7504E2D5194E200C155FD /* NewContractViewModel.swift in Sources */,
+				0E1989222D5A9D3600DE1B39 /* ContractDetailView.swift in Sources */,
+				0E1989242D5A9D5700DE1B39 /* ContractDetailViewModel.swift in Sources */,
 				0E8F1C372D56B50C003A61DB /* CoreDataStack.swift in Sources */,
 				0E1701CA2D54747B0011122B /* Contract.swift in Sources */,
 				0EE750502D51966300C155FD /* HomeViewModel.swift in Sources */,

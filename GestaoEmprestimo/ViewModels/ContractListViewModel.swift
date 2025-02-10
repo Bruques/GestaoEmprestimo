@@ -46,4 +46,8 @@ class ContractListViewModel: ObservableObject {
             self?.refresh()
         }
     }
+    
+    public func makeContractDetailViewModel(_ contract: ContractEntity) -> ContractDetailViewModel {
+        return ContractDetailViewModel(contract: contract)
+    }
 }

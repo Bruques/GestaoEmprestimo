@@ -9,15 +9,23 @@ import SwiftUI
 
 struct ContractListView: View {
     @ObservedObject var viewModel: ContractListViewModel
+    @Environment(\.colorScheme) var colorSheme
     var body: some View {
         NavigationView {
             List {
                 ForEach(viewModel.contracts) { contract in
-                    contractCell(contract)
-                        .listRowSeparator(.hidden)
+                    NavigationLink(destination: ContractDetailView(viewModel: viewModel.makeContractDetailViewModel(contract))) {
+                        contractCell(contract)
+                            .listRowSeparator(.hidden)
+                    }
+                    .opacity(0)
+                    .overlay {
+                        contractCell(contract)
+                    }
                 }
                 .onDelete(perform: viewModel.delete(at:))
                 .listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
             }
             .listStyle(.plain)
             .refreshable {
@@ -64,9 +72,9 @@ struct ContractListView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.white)
-                .shadow(color: .black.opacity(0.2),
-                        radius: 8, 
+                .fill(colorSheme == .dark ? Color.black : Color.white)
+                .shadow(color: colorSheme == .dark ? .white.opacity(0.2) : .black.opacity(0.2),
+                        radius: 8,
                         x: 0,
                         y: 0)
         )
