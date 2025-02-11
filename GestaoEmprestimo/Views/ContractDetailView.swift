@@ -73,25 +73,43 @@ struct ContractDetailView: View {
                             .font(.callout)
                     }
                 }
-                
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    viewModel.onEditTap()
+                }, label: {
+                    Text("Editar")
+                })
+            }
+        }
+        .fullScreenCover(isPresented: $viewModel.showForm) {
+            NavigationView {
+                NewContractView(viewModel: viewModel.makeNewContractViewModel())
             }
         }
     }
 }
 
-#Preview {
-    let entity = ContractEntity(context: CoreDataStack.shared.persistentContainer.viewContext)
-    entity.name = "Bruno"
-    entity.address = "Rua do Bruno"
-    entity.phone = "3599887766"
-    entity.loanDate = Date()
-    entity.loanValue = 10000
-    entity.interestRate = 15
-    entity.recurrence = "Mensal"
-    entity.installments = 10
-    entity.totalToBeReceived = 11500
-    entity.profitProjection = 1500
+//#Preview {
+//    let entity = ContractEntity(context: CoreDataStack.shared.persistentContainer.viewContext)
+//    entity.name = "Bruno"
+//    entity.address = "Rua do Bruno"
+//    entity.phone = "3599887766"
+//    entity.loanDate = Date()
+//    entity.loanValue = 10000
+//    entity.interestRate = 15
+//    entity.recurrence = "Mensal"
+//    entity.installments = 10
+//    entity.totalToBeReceived = 11500
+//    entity.profitProjection = 1500
+//
+//    let viewModel = ContractDetailViewModel(contract: entity)
+//    return ContractDetailView(viewModel: viewModel)
+//}
 
-    let viewModel = ContractDetailViewModel(contract: entity)
-    return ContractDetailView(viewModel: viewModel)
+#Preview {
+    let vm = ContractListViewModel()
+    return ContractListView(viewModel: vm)
 }

@@ -10,6 +10,11 @@ import Combine
 import SwiftUI
 
 class NewContractViewModel: ObservableObject {
+    enum FormType {
+        case creation
+        case edition
+    }
+    
     @Published var name: String = ""
     @Published var address: String = ""
     @Published var phone: String = ""
@@ -34,12 +39,31 @@ class NewContractViewModel: ObservableObject {
     
     @Published var isSaved: Bool = false
     
+    @Published var formType: FormType
+    
+    let contract: ContractEntity?
+    
     private var cancellables = Set<AnyCancellable>()
     
     let onSave: () -> Void
     
-    init(onSave: @escaping () -> Void) {
+    init(contract: ContractEntity? = nil, formType: FormType, onSave: @escaping () -> Void) {
+        self.contract = contract
         self.onSave = onSave
+        self.formType = formType
+        
+        if let contract {
+            name = contract.name ?? ""
+            address = contract.address ?? ""
+            phone = contract.phone ?? ""
+            loanDate = contract.loanDate ?? Date()
+            loanValue = "\(contract.loanValue)"
+            interestRate = "\(contract.interestRate)"
+            recurrence = Recurrence(rawValue: contract.recurrence ?? "Mensal") ?? .mensal
+            installments = "\(contract.installments)"
+            totalToBeReceived = contract.totalToBeReceived
+            profitProjection = contract.profitProjection
+        }
     }
 
     private func calculate() {
@@ -69,6 +93,15 @@ class NewContractViewModel: ObservableObject {
         showBackDialog = true
     }
     
+    public func onSaveTap() {
+        switch formType {
+        case .creation:
+            newContract()
+        case .edition:
+            updateContract()
+        }
+    }
+    
     // MARK: - New contract
     public func newContract() {
         guard let value = Double(loanValue),
@@ -90,6 +123,31 @@ class NewContractViewModel: ObservableObject {
         contract.installments = Int16(installments)
         contract.totalToBeReceived = totalToBeReceived
         contract.profitProjection = profitProjection
+        
+        CoreDataStack.shared.save()
+        isSaved = true
+        onSave()
+    }
+    
+    public func updateContract() {
+        guard let value = Double(loanValue),
+              let interest = Double(interestRate),
+              let installments = Int(installments) else {
+            print("Erro ao criar contrato: valores inválidos.")
+            showSaveAlert = true
+            return
+        }
+        
+        contract?.name = name
+        contract?.address = address
+        contract?.phone = phone
+        contract?.loanDate = loanDate
+        contract?.loanValue = value
+        contract?.interestRate = interest
+        contract?.recurrence = recurrence.rawValue
+        contract?.installments = Int16(installments)
+        contract?.totalToBeReceived = totalToBeReceived
+        contract?.profitProjection = profitProjection
         
         CoreDataStack.shared.save()
         isSaved = true

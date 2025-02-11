@@ -53,19 +53,17 @@ struct NewContractView: View {
                     Text("Você não poderá desfazer isso.")
                 }
             }
-            ToolbarItem(placement: .principal) {
-                Text("Novo contrato")
-                    .font(.headline)
-            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    viewModel.newContract()
+                    viewModel.onSaveTap()
                 }, label: {
                     Text("Salvar")
                         .font(.headline)
                 })
             }
         }
+        .navigationTitle("Novo contrato")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     var clientInfoSection: some View {
@@ -124,7 +122,9 @@ struct NewContractView: View {
 }
 
 //#Preview {
-//    let viewModel = NewContractViewModel()
+//    let viewModel = NewContractViewModel {
+//
+//    }
 //    return NewContractView(viewModel: viewModel)
 //}
 
