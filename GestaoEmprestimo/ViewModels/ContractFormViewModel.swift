@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-class NewContractViewModel: ObservableObject {
+class ContractFormViewModel: ObservableObject {
     enum FormType {
         case creation
         case edition
@@ -18,6 +18,7 @@ class NewContractViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var address: String = ""
     @Published var phone: String = ""
+    @Published var email: String = ""
     @Published var loanDate: Date = Date()
     @Published var loanValue: String = "" {
         didSet {
@@ -38,31 +39,32 @@ class NewContractViewModel: ObservableObject {
     @Published var showSaveAlert: Bool = false
     
     @Published var isSaved: Bool = false
-    
     @Published var formType: FormType
     
-    let contract: ContractEntity?
+    let initialContract: ContractEntity?
+    let onSave: () -> Void
     
     private var cancellables = Set<AnyCancellable>()
     
-    let onSave: () -> Void
-    
-    init(contract: ContractEntity? = nil, formType: FormType, onSave: @escaping () -> Void) {
-        self.contract = contract
+    init(initialContract: ContractEntity? = nil,
+         formType: FormType,
+         onSave: @escaping () -> Void) {
+        self.initialContract = initialContract
         self.onSave = onSave
         self.formType = formType
         
-        if let contract {
-            name = contract.name ?? ""
-            address = contract.address ?? ""
-            phone = contract.phone ?? ""
-            loanDate = contract.loanDate ?? Date()
-            loanValue = "\(contract.loanValue)"
-            interestRate = "\(contract.interestRate)"
-            recurrence = Recurrence(rawValue: contract.recurrence ?? "Mensal") ?? .mensal
-            installments = "\(contract.installments)"
-            totalToBeReceived = contract.totalToBeReceived
-            profitProjection = contract.profitProjection
+        if let initialContract {
+            name = initialContract.name ?? ""
+            address = initialContract.address ?? ""
+            phone = initialContract.phone ?? ""
+            email = initialContract.email ?? ""
+            loanDate = initialContract.loanDate ?? Date()
+            loanValue = "\(initialContract.loanValue)"
+            interestRate = "\(initialContract.interestRate)"
+            recurrence = Recurrence(rawValue: initialContract.recurrence ?? "Mensal") ?? .mensal
+            installments = "\(initialContract.installments)"
+            totalToBeReceived = initialContract.totalToBeReceived
+            profitProjection = initialContract.profitProjection
         }
     }
 
@@ -81,18 +83,35 @@ class NewContractViewModel: ObservableObject {
         profitProjection = totalToBeReceived - value
     }
     
-    public func isFormEmpty() -> Bool {
-        return name.isEmpty &&
-            address.isEmpty &&
-            loanValue.isEmpty &&
-            interestRate.isEmpty &&
-            installments.isEmpty
+    // MARK: - Has changes
+    public func hasChanges() -> Bool {
+        switch formType {
+            case .creation:
+                return !name.isEmpty ||
+                       !address.isEmpty ||
+                       !phone.isEmpty ||
+                       !email.isEmpty ||
+                       !loanValue.isEmpty ||
+                       !interestRate.isEmpty ||
+                       !installments.isEmpty
+                       
+            case .edition:
+            guard let initialContract else { return false }
+                return name != initialContract.name ||
+                       address != initialContract.address ||
+                       phone != initialContract.phone ||
+                       email != initialContract.email ||
+                       loanValue != String(initialContract.loanValue) ||
+                       interestRate != String(initialContract.interestRate) ||
+                       installments != String(initialContract.installments)
+            }
     }
     
     public func onBackTap() {
         showBackDialog = true
     }
     
+    // MARK: - On save tap
     public func onSaveTap() {
         switch formType {
         case .creation:
@@ -116,6 +135,7 @@ class NewContractViewModel: ObservableObject {
         contract.name = name
         contract.address = address
         contract.phone = phone
+        contract.email = email
         contract.loanDate = loanDate
         contract.loanValue = value
         contract.interestRate = interest
@@ -129,6 +149,7 @@ class NewContractViewModel: ObservableObject {
         onSave()
     }
     
+    // MARK: - Update contract
     public func updateContract() {
         guard let value = Double(loanValue),
               let interest = Double(interestRate),
@@ -138,16 +159,17 @@ class NewContractViewModel: ObservableObject {
             return
         }
         
-        contract?.name = name
-        contract?.address = address
-        contract?.phone = phone
-        contract?.loanDate = loanDate
-        contract?.loanValue = value
-        contract?.interestRate = interest
-        contract?.recurrence = recurrence.rawValue
-        contract?.installments = Int16(installments)
-        contract?.totalToBeReceived = totalToBeReceived
-        contract?.profitProjection = profitProjection
+        initialContract?.name = name
+        initialContract?.address = address
+        initialContract?.phone = phone
+        initialContract?.email = email
+        initialContract?.loanDate = loanDate
+        initialContract?.loanValue = value
+        initialContract?.interestRate = interest
+        initialContract?.recurrence = recurrence.rawValue
+        initialContract?.installments = Int16(installments)
+        initialContract?.totalToBeReceived = totalToBeReceived
+        initialContract?.profitProjection = profitProjection
         
         CoreDataStack.shared.save()
         isSaved = true

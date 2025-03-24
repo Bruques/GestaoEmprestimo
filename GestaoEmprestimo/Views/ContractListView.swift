@@ -47,7 +47,7 @@ struct ContractListView: View {
         .sheet(isPresented: $viewModel.showForm,
                content: {
             NavigationView {
-                NewContractView(viewModel: viewModel.makeNewContractViewModel())
+                ContractFormView(viewModel: viewModel.makeNewContractViewModel())
             }
         })
     }

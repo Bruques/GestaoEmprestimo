@@ -35,6 +35,13 @@ struct ContractDetailView: View {
                             .foregroundStyle(.gray)
                             .font(.callout)
                     }
+                    HStack {
+                        Text("Email")
+                        Spacer()
+                        Text(viewModel.contract.email ?? "")
+                            .foregroundStyle(.gray)
+                            .font(.callout)
+                    }
                 }
                 Section("Informações do empréstimo") {
                     HStack {
@@ -73,6 +80,20 @@ struct ContractDetailView: View {
                             .font(.callout)
                     }
                 }
+                Section("Cálculos") {
+                    HStack {
+                        Text("Total a Receber:")
+                        Spacer()
+                        Text("R$ \(viewModel.contract.totalToBeReceived, specifier: "%.2f")")
+                            .foregroundStyle(.blue)
+                    }
+                    HStack {
+                        Text("Previsão de Lucro:")
+                        Spacer()
+                        Text("R$ \(viewModel.contract.profitProjection, specifier: "%.2f")")
+                            .foregroundColor(.green)
+                    }
+                }
             }
         }
         .toolbar {
@@ -86,7 +107,7 @@ struct ContractDetailView: View {
         }
         .fullScreenCover(isPresented: $viewModel.showForm) {
             NavigationView {
-                NewContractView(viewModel: viewModel.makeNewContractViewModel())
+                ContractFormView(viewModel: viewModel.makeNewContractViewModel())
             }
         }
     }

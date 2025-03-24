@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct NewContractView: View {
-    @ObservedObject var viewModel: NewContractViewModel
+struct ContractFormView: View {
+    @ObservedObject var viewModel: ContractFormViewModel
     @FocusState private var isFocused: Bool
-    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -19,51 +18,29 @@ struct NewContractView: View {
             loanInfoSection
             loanDetailInfoSection
         }
+        .scrollDismissesKeyboard(.interactively)
+        .navigationTitle("Novo contrato")
+        .navigationBarTitleDisplayMode(.inline)
         .onReceive(viewModel.$isSaved) { isSaved in
             if isSaved {
                 dismiss()
             }
         }
-        .alert("Você precisa preencher os campos antes de salvar", isPresented: $viewModel.showSaveAlert, actions: {
+        .alert("Você precisa preencher os campos antes de salvar", 
+               isPresented: $viewModel.showSaveAlert,
+               actions: {
             Button("Voltar",
                    role: .cancel) {}
         })
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: {
-                    if viewModel.isFormEmpty() {
-                        dismiss()
-                    } else {
-                        viewModel.showBackDialog = true
-                    }
-                }, label: {
-                    Text("Voltar")
-                })
-                .confirmationDialog(
-                    "Tem certeza que deseja cancelar?",
-                    isPresented: $viewModel.showBackDialog
-                ) {
-                    Button("Deletar",
-                           role: .destructive) {
-                        dismiss()
-                    }
-                    Button("Cancelar",
-                           role: .cancel) {}
-                } message: {
-                    Text("Você não poderá desfazer isso.")
-                }
+                backButton
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    viewModel.onSaveTap()
-                }, label: {
-                    Text("Salvar")
-                        .font(.headline)
-                })
+                saveButton
             }
         }
-        .navigationTitle("Novo contrato")
-        .navigationBarTitleDisplayMode(.inline)
+        
     }
     
     var clientInfoSection: some View {
@@ -76,6 +53,9 @@ struct NewContractView: View {
             TextField("Endereço", text: $viewModel.address)
             TextField("Telefone", text: $viewModel.phone)
                 .keyboardType(.numberPad)
+            TextField("Email", text: $viewModel.email)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
         }
     }
     
@@ -118,6 +98,40 @@ struct NewContractView: View {
                     .foregroundColor(.green)
             }
         }
+    }
+    
+    var backButton: some View {
+        Button(action: {
+            if viewModel.hasChanges() {
+                viewModel.showBackDialog = true
+            } else {
+                dismiss()
+            }
+        }, label: {
+            Text("Voltar")
+        })
+        .confirmationDialog(
+            "Tem certeza que deseja cancelar?",
+            isPresented: $viewModel.showBackDialog
+        ) {
+            Button("Deletar",
+                   role: .destructive) {
+                dismiss()
+            }
+            Button("Cancelar",
+                   role: .cancel) {}
+        } message: {
+            Text("Você não poderá desfazer isso.")
+        }
+    }
+    
+    var saveButton: some View {
+        Button(action: {
+            viewModel.onSaveTap()
+        }, label: {
+            Text("Salvar")
+                .font(.headline)
+        })
     }
 }
 

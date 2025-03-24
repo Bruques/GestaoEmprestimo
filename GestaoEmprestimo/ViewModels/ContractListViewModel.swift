@@ -41,8 +41,8 @@ class ContractListViewModel: ObservableObject {
     }
     
     // MARK: - Make new contract view model
-    public func makeNewContractViewModel() -> NewContractViewModel {
-        return NewContractViewModel(formType: .creation) { [weak self] in
+    public func makeNewContractViewModel() -> ContractFormViewModel {
+        return ContractFormViewModel(formType: .creation) { [weak self] in
             self?.refresh()
         }
     }

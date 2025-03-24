@@ -21,8 +21,8 @@ class ContractDetailViewModel: ObservableObject {
         showForm = true
     }
     
-    public func makeNewContractViewModel() -> NewContractViewModel {
-        return NewContractViewModel(contract: contract, formType: .edition) { [weak self] in
+    public func makeNewContractViewModel() -> ContractFormViewModel {
+        return ContractFormViewModel(initialContract: contract, formType: .edition) { [weak self] in
             self?.onSave()
         }
     }
